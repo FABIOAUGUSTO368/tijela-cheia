@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tigela Cheia Store - ecommerce de acai, sobremesas e combos com carrinho e checkout via WhatsApp.">
+<title>Tigela Cheia Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f081a;
+    --bg2: #1f1036;
+    --panel: rgba(255,255,255,0.08);
+    --panel-strong: rgba(255,255,255,0.14);
+    --line: rgba(255,255,255,0.16);
+    --text: #faf6ff;
+    --muted: rgba(250,246,255,0.74);
+    --accent: #ffd84a;
+    --accent2: #8b5cf6;
+    --green: #29d46f;
+    --danger: #ff6b81;
+    --shadow: 0 24px 80px rgba(0,0,0,0.42);
+    --radius: 28px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Nunito", sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(123,76,255,0.22), transparent 30%),
+      radial-gradient(circle at top right, rgba(255,216,74,0.16), transparent 24%),
+      linear-gradient(180deg, var(--bg) 0%, #09050f 100%);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+  button, input, select, textarea { font: inherit; }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(22px);
+    background: rgba(15, 8, 26, 0.78);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+
+  .topbar-inner, .page {
+    width: min(1520px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    gap: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent) 0%, #ffb84d 100%);
+    color: #201033;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    box-shadow: 0 14px 34px rgba(255,216,74,0.28);
+  }
+
+  .brand-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.55rem;
+    line-height: 1;
+  }
+
+  .brand-sub {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .chip {
+    border: 1px solid var(--line);
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+    gap: 24px;
+    padding: 30px 0 18px;
+    align-items: stretch;
+  }
+
+  .hero-copy, .hero-card, .section-card, .cart-card, .product-card {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+  }
+
+  .hero-copy {
+    position: relative;
+    overflow: hidden;
+    padding: 44px;
+    min-height: 500px;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(255,216,74,0.10), transparent 24%),
+      linear-gradient(135deg, #5b2b91 0%, #6d379d 42%, #4d247f 100%);
+  }
+
+  .hero-copy::after {
+    content: "";
+    position: absolute;
+    inset: auto -60px -80px auto;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,216,74,0.24), transparent 68%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255,216,74,0.14);
+    border: 1px solid rgba(255,216,74,0.16);
+    color: #fff2a9;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  h1, h2, h3 { font-family: "Playfair Display", serif; }
+
+  h1 {
+    font-size: clamp(3.2rem, 6.4vw, 5.9rem);
+    line-height: 0.88;
+    margin: 18px 0 16px;
+  }
+
+  .hero-copy p {
+    max-width: 60ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .hero-copy .hero-actions .btn-primary {
+    min-width: 220px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, #ffdb59 45%, #f6c844 100%);
+    color: #1d102d;
+    box-shadow: 0 18px 45px rgba(255,216,74,0.24);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .stat {
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-card {
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+    min-height: 500px;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(255,216,74,0.10), transparent 20%),
+      linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.05));
+  }
+
+  .hero-card .banner {
+    min-height: 330px;
+    border-radius: 24px;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(17,8,33,0.1), rgba(17,8,33,0.25)),
+      url("https://images.pexels.com/photos/12273052/pexels-photo-12273052.jpeg?auto=compress&cs=tinysrgb&w=1200") center/cover;
+  }
+
+  .hero-card .mini {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .mini-box {
+    flex: 1 1 130px;
+    padding: 14px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .mini-box span {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .section {
+    padding: 24px 0 0;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 34px 0 16px;
+  }
+
+  .section-head p {
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 18px 0 22px;
+  }
+
+  .filter-btn {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    padding: 10px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 800;
+  }
+
+  .filter-btn.active {
+    background: rgba(255,216,74,0.14);
+    border-color: rgba(255,216,74,0.3);
+    color: var(--accent);
+    box-shadow: 0 10px 24px rgba(255,216,74,0.12);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 22px;
+    align-items: start;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,216,74,0.28);
+    background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  }
+
+  .product-img {
+    height: 210px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .product-body {
+    padding: 20px;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .tag {
+    font-size: 0.78rem;
+    color: var(--accent);
+    border: 1px solid rgba(255,216,74,0.18);
+    background: rgba(255,216,74,0.10);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+  }
+
+  .product-body h3 {
+    font-size: 1.28rem;
+    margin-bottom: 8px;
+  }
+
+  .product-body p {
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    min-height: 58px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--accent);
+  }
+
+  .small {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.07);
+    color: var(--text);
+    cursor: pointer;
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .cart-card {
+    position: sticky;
+    top: 96px;
+    padding: 20px;
+  }
+
+  .cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .cart-items {
+    display: grid;
+    gap: 12px;
+    max-height: 420px;
+    overflow: auto;
+    padding-right: 4px;
+    margin-bottom: 14px;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .cart-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cart-item h4 {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+  }
+
+  .cart-item .meta {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .qty button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .cart-summary {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+  }
+
+  .summary-row strong {
+    color: var(--text);
+  }
+
+  .checkout-form {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: 0.92rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.07);
+    color: var(--text);
+    outline: none;
+  }
+
+  .checkout-buttons {
+    display: grid;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .section-card {
+    margin-top: 24px;
+    padding: 24px;
+  }
+
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .benefit {
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.09);
+  }
+
+  .benefit strong {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .footer {
+    padding: 36px 0 54px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 18px;
+    border-radius: 999px;
+    background: rgba(18, 8, 31, 0.96);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: var(--shadow);
+    display: none;
+    z-index: 60;
+  }
+
+  .empty {
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px dashed rgba(255,255,255,0.14);
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 1080px) {
+    .layout { grid-template-columns: 1fr; }
+    .cart-card { position: static; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    .topbar-inner, .page { width: min(100% - 18px, 1520px); }
+    .nav { padding: 14px 0; }
+    .nav-links { display: none; }
+    .hero-copy { padding: 24px; min-height: auto; }
+    .hero-card { min-height: auto; }
+    .grid, .stats, .benefits { grid-template-columns: 1fr; }
+    .section-head { align-items: start; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="nav">
+        <a class="brand" href="#home">
+          <div class="brand-mark">TC</div>
+          <div>
+            <div class="brand-title">Tigela Cheia</div>
+            <span class="brand-sub">acai store & delivery</span>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#products">Produtos</a>
+          <a href="#benefits">Vantagens</a>
+          <a href="#checkout">Checkout</a>
+          <a class="chip" href="https://api.whatsapp.com/send?phone=5511947802666" target="_blank" rel="noreferrer">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Aberto todos os dias - 12h as 22h</span>
+        <h1>O acai mais <em>cremoso</em> de Osasco</h1>
+        <p>Self-service para montar do seu jeito, area kids para as criancas se divertirem e delivery pelo WhatsApp, iFood e Keeta.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5511947802666&text=Ol%C3%A1! Quero pedir um acai na Tigela Cheia." target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
+          <a class="btn btn-secondary" href="#checkout">Ver delivery</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>Self-service</strong><span class="small">monte do seu jeito</span></div>
+          <div class="stat"><strong>Area kids</strong><span class="small">mais conforto para a familia</span></div>
+          <div class="stat"><strong>Delivery</strong><span class="small">WhatsApp, iFood e Keeta</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="banner"></div>
+        <div class="mini">
+          <div class="mini-box"><strong>Frete rapido</strong><br><span>Entrega por bairro</span></div>
+          <div class="mini-box"><strong>Pagamento</strong><br><span>Pix, dinheiro e link</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Catalogo</span>
+          <h2 style="margin-top:12px;font-size:2.2rem;">Escolha o que vai para o carrinho</h2>
+        </div>
+        <p>Filtre por categoria e monte a compra com a cara do seu negocio. O carrinho soma tudo automaticamente e gera a mensagem final.</p>
+      </div>
+
+      <div class="filters" id="filters"></div>
+
+      <div class="layout">
+        <div>
+          <div class="grid" id="productGrid"></div>
+          <section class="section-card" id="benefits">
+            <span class="eyebrow">Por que funciona</span>
+            <div style="height:14px"></div>
+            <h2 style="font-size:2rem;margin-bottom:14px;">Um ecommerce simples que vende</h2>
+            <div class="benefits">
+              <div class="benefit"><strong>Catalogo rapido</strong><span class="small">Seu cliente navega sem friccao.</span></div>
+              <div class="benefit"><strong>Carrinho real</strong><span class="small">Adiciona, remove e altera quantidades.</span></div>
+              <div class="benefit"><strong>Checkout leve</strong><span class="small">Finaliza pelo WhatsApp com resumo pronto.</span></div>
+              <div class="benefit"><strong>Visual premium</strong><span class="small">Design forte para marca de comida.</span></div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="cart-card" id="checkout">
+          <div class="cart-head">
+            <div>
+              <span class="eyebrow">Carrinho</span>
+              <h3 style="margin-top:10px;font-size:1.6rem;">Sua compra</h3>
+            </div>
+            <button class="icon-btn" id="clearCart" title="Limpar carrinho">x</button>
+          </div>
+
+          <div class="cart-items" id="cartItems"></div>
+          <div class="empty" id="cartEmpty">Seu carrinho esta vazio. Adicione produtos para gerar o pedido.</div>
+
+          <div class="cart-summary">
+            <div class="summary-row"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+            <div class="summary-row"><span>Entrega</span><strong id="shipping">R$ 8,00</strong></div>
+            <div class="summary-row"><span>Total</span><strong id="total">R$ 8,00</strong></div>
+          </div>
+
+          <form class="checkout-form" id="checkoutForm">
+            <div class="field">
+              <label for="customerName">Nome</label>
+              <input id="customerName" type="text" placeholder="Seu nome" required>
+            </div>
+            <div class="field">
+              <label for="customerPhone">Telefone</label>
+              <input id="customerPhone" type="tel" placeholder="(11) 99999-9999" required>
+            </div>
+            <div class="field">
+              <label for="deliveryType">Entrega</label>
+              <select id="deliveryType">
+                <option value="delivery">Entrega</option>
+                <option value="pickup">Retirada</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="address">Endereco</label>
+              <textarea id="address" rows="3" placeholder="Rua, numero, bairro"></textarea>
+            </div>
+            <div class="checkout-buttons">
+              <button class="btn btn-primary" type="submit">Finalizar no WhatsApp</button>
+              <button class="btn btn-secondary" type="button" id="saveDraft">Salvar pedido</button>
+            </div>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-card" style="margin-bottom:34px;">
+      <span class="eyebrow">Pronto para vender</span>
+      <div style="height:12px"></div>
+      <h2 style="font-size:2rem;margin-bottom:10px;">O que eu criei aqui</h2>
+      <p class="small">Uma base de ecommerce de uma pagina so, com foco em conversao. O proximo passo natural e ligar isso a um backend ou a um gateway de pagamento, mas ja esta util como loja funcional para pedidos.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Tigela Cheia Store - ecommerce demo baseado no projeto original.
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  const products = [
+    { id: 'classic', name: 'Tigela Classica', category: 'acai', price: 14.9, image: 'https://images.pexels.com/photos/3801690/pexels-photo-3801690.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Mais vendido'], desc: 'Acai cremoso, banana, granola e mel.' },
+    { id: 'choco', name: 'Choco Lover', category: 'premium', price: 19.9, image: 'https://images.pexels.com/photos/6529789/pexels-photo-6529789.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Premium'], desc: 'Acai com chocolate belga, morango e creme.' },
+    { id: 'banana', name: 'Banana Fit', category: 'fitness', price: 18.5, image: 'https://images.pexels.com/photos/1126728/pexels-photo-1126728.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Leve'], desc: 'Acai sem acucar com banana, aveia e chia.' },
+    { id: 'family', name: 'Combo Familia', category: 'combos', price: 44.9, image: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Combo'], desc: '3 tigelas media com adicionais e desconto.' },
+    { id: 'kids', name: 'Kids Cup', category: 'kids', price: 12.9, image: 'https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Novo'], desc: 'Versao infantil com frutas e granola colorida.' },
+    { id: 'jar', name: 'Pote 500ml', category: 'acai', price: 23.9, image: 'https://images.pexels.com/photos/3111222/pexels-photo-3111222.jpeg?auto=compress&cs=tinysrgb&w=900', tags: ['Pratico'], desc: 'Pote para viagem e consumo em casa.' }
+  ];
+
+  const categories = ['todos', ...new Set(products.map(p => p.category))];
+  const labels = { todos: 'Todos', acai: 'Acai', premium: 'Premium', fitness: 'Fitness', combos: 'Combos', kids: 'Kids' };
+  const cart = new Map();
+  let activeCategory = 'todos';
+
+  const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  const toast = (message) => {
+    const el = document.getElementById('toast');
+    el.textContent = message;
+    el.style.display = 'block';
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => { el.style.display = 'none'; }, 2200);
+  };
+
+  const renderFilters = () => {
+    const host = document.getElementById('filters');
+    host.innerHTML = categories.map(cat => `
+      <button class="filter-btn ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">${labels[cat]}</button>
+    `).join('');
+    host.querySelectorAll('[data-category]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.category;
+        renderFilters();
+        renderProducts();
+      });
+    });
+  };
+
+  const renderProducts = () => {
+    const host = document.getElementById('productGrid');
+    const filtered = activeCategory === 'todos' ? products : products.filter(p => p.category === activeCategory);
+    host.innerHTML = filtered.map(product => `
+      <article class="product-card">
+        <div class="product-img" style="background-image:url('${product.image}')"></div>
+        <div class="product-body">
+          <div class="tag-row">
+            ${product.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+          <h3>${product.name}</h3>
+          <p>${product.desc}</p>
+          <div class="price-row">
+            <div>
+              <div class="price">${money(product.price)}</div>
+              <div class="small">ou no WhatsApp</div>
+            </div>
+            <button class="btn btn-secondary add-btn" data-add="${product.id}">Adicionar</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    host.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', () => addToCart(btn.dataset.add));
+    });
+  };
+
+  const addToCart = (id) => {
+    const item = cart.get(id);
+    cart.set(id, item ? { ...item, qty: item.qty + 1 } : { ...products.find(p => p.id === id), qty: 1 });
+    renderCart();
+    toast('Produto adicionado ao carrinho');
+  };
+
+  const removeFromCart = (id) => {
+    cart.delete(id);
+    renderCart();
+  };
+
+  const updateQty = (id, delta) => {
+    const item = cart.get(id);
+    if (!item) return;
+    const nextQty = item.qty + delta;
+    if (nextQty <= 0) cart.delete(id);
+    else cart.set(id, { ...item, qty: nextQty });
+    renderCart();
+  };
+
+  const shipping = () => cart.size ? 8 : 0;
+  const subtotal = () => [...cart.values()].reduce((sum, item) => sum + item.price * item.qty, 0);
+  const total = () => subtotal() + shipping();
+
+  const renderCart = () => {
+    const itemsHost = document.getElementById('cartItems');
+    const emptyHost = document.getElementById('cartEmpty');
+    const items = [...cart.values()];
+
+    emptyHost.style.display = items.length ? 'none' : 'block';
+    itemsHost.innerHTML = items.map(item => `
+      <div class="cart-item">
+        <div class="cart-thumb" style="background-image:url('${item.image}')"></div>
+        <div>
+          <h4>${item.name}</h4>
+          <div class="meta">${money(item.price)} cada</div>
+          <div class="qty">
+            <button type="button" data-dec="${item.id}">-</button>
+            <span>${item.qty}</span>
+            <button type="button" data-inc="${item.id}">+</button>
+          </div>
+        </div>
+        <button class="icon-btn" type="button" data-remove="${item.id}">x</button>
+      </div>
+    `).join('');
+
+    itemsHost.querySelectorAll('[data-dec]').forEach(btn => btn.addEventListener('click', () => updateQty(btn.dataset.dec, -1)));
+    itemsHost.querySelectorAll('[data-inc]').forEach(btn => btn.addEventListener('click', () => updateQty(btn.dataset.inc, 1)));
+    itemsHost.querySelectorAll('[data-remove]').forEach(btn => btn.addEventListener('click', () => removeFromCart(btn.dataset.remove)));
+
+    document.getElementById('subtotal').textContent = money(subtotal());
+    document.getElementById('shipping').textContent = money(shipping());
+    document.getElementById('total').textContent = money(total());
+  };
+
+  document.getElementById('clearCart').addEventListener('click', () => {
+    cart.clear();
+    renderCart();
+    toast('Carrinho limpo');
+  });
+
+  document.getElementById('saveDraft').addEventListener('click', () => {
+    localStorage.setItem('tigela-cheia-cart', JSON.stringify([...cart.values()]));
+    toast('Pedido salvo no navegador');
+  });
+
+  document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!cart.size) {
+      toast('Adicione produtos ao carrinho');
+      return;
+    }
+
+    const name = document.getElementById('customerName').value.trim();
+    const phone = document.getElementById('customerPhone').value.trim();
+    const deliveryType = document.getElementById('deliveryType').value;
+    const address = document.getElementById('address').value.trim() || 'Nao informado';
+    const lines = [...cart.values()].map(item => `- ${item.qty}x ${item.name} (${money(item.price * item.qty)})`);
+    const message = [
+      'Ola! Quero fechar este pedido na Tigela Cheia.',
+      `Nome: ${name}`,
+      `Telefone: ${phone}`,
+      `Tipo: ${deliveryType === 'delivery' ? 'Entrega' : 'Retirada'}`,
+      `Endereco: ${address}`,
+      '',
+      'Itens:',
+      ...lines,
+      '',
+      `Subtotal: ${money(subtotal())}`,
+      `Frete: ${money(shipping())}`,
+      `Total: ${money(total())}`
+    ].join('\\n');
+
+    const url = `https://api.whatsapp.com/send?phone=5511947802666&text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  const saved = localStorage.getItem('tigela-cheia-cart');
+  if (saved) {
+    try {
+      JSON.parse(saved).forEach(item => cart.set(item.id, item));
+    } catch {}
+  }
+
+  renderFilters();
+  renderProducts();
+  renderCart();
+</script>
+</body>
+</html>

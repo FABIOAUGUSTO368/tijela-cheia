@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tigela Cheia – Açaíteria em Osasco</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --roxo: #3B1A6B;
+    --roxo-escuro: #210E45;
+    --acai: #6B2D8B;
+    --acai-light: #9B5DC0;
+    --amarelo: #FFD93D;
+    --verde: #25D366;
+    --creme: #FFF8EF;
+    --branco: #FFFFFF;
+    --texto: #1A0A2E;
+    --sombra: 0 15px 50px rgba(33,14,69,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ---- NAVBAR ---- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(33,14,69,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+  }
+  .logo-nav {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--amarelo); text-decoration: none;
+  }
+  .logo-nav span { color: var(--branco); }
+  
+  .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-weight: 700; font-size: 0.9rem; text-transform: uppercase;
+    transition: 0.2s;
+  }
+  .nav-links a:hover { color: var(--amarelo); }
+  
+  .nav-cta {
+    background: var(--amarelo); color: var(--roxo-escuro) !important;
+    padding: 12px 28px; border-radius: 50px; font-weight: 800;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--roxo-escuro) 0%, var(--acai) 50%, #1a0030 100%);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 120px 60px 80px; gap: 40px; position: relative; overflow: hidden;
+  }
+  .hero-content { max-width: 600px; z-index: 2; animation: fadeUp 0.8s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  .hero-badge {
+    display: inline-block; background: rgba(255,217,61,0.1); color: var(--amarelo);
+    padding: 8px 20px; border-radius: 50px; font-weight: 800; font-size: 0.8rem;
+    margin-bottom: 20px; border: 1px solid rgba(255,217,61,0.2);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 4.5rem); color: white; line-height: 1.1; margin-bottom: 24px; }
+  h1 em { font-style: italic; color: var(--amarelo); }
+  .hero-desc { font-size: 1.2rem; color: rgba(255,255,255,0.7); margin-bottom: 40px; line-height: 1.6; }
+
+  .hero-image { flex: 1; display: flex; justify-content: center; animation: float 6s ease-in-out infinite; }
+  .hero-image img { 
+    width: 100%; max-width: 500px; border-radius: 40px; 
+    box-shadow: 0 30px 100px rgba(0,0,0,0.5); 
+    object-fit: cover; aspect-ratio: 1/1;
+  }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+  .btn-primary {
+    background: var(--amarelo); color: var(--roxo-escuro); padding: 20px 40px;
+    border-radius: 50px; text-decoration: none; font-weight: 800; display: inline-flex;
+    align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(255,217,61,0.3);
+    transition: 0.3s;
+  }
+  .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255,217,61,0.4); }
+
+  /* ---- SOBRE ---- */
+  .sobre { padding: 120px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1300px; margin: 0 auto; }
+  .sobre-img { height: 500px; border-radius: 40px; overflow: hidden; box-shadow: var(--sombra); }
+  .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
+  .sobre h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--roxo-escuro); margin-bottom: 20px; }
+  .sobre p { font-size: 1.1rem; line-height: 1.8; color: #5a4a72; margin-bottom: 20px; }
+
+  /* ---- CARDÁPIO ---- */
+  .cardapio { padding: 120px 60px; background: var(--roxo-escuro); }
+  .section-title { text-align: center; margin-bottom: 60px; }
+  .section-title h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; padding: 24px; transition: 0.3s; display: flex; flex-direction: column; }
+  .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.06); border-color: var(--amarelo); }
+  .card-img { width: 100%; height: 240px; border-radius: 20px; overflow: hidden; margin-bottom: 24px; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: white; margin-bottom: 12px; }
+  .card p { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 24px; flex-grow: 1; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+  .price { color: var(--amarelo); font-weight: 800; font-size: 1.4rem; }
+  .btn-order { border: 1.5px solid var(--verde); color: var(--verde); padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; }
+  .btn-order:hover { background: var(--verde); color: white; }
+
+  /* ---- FEEDBACK ---- */
+  .feedback { padding: 120px 60px; background: var(--creme); }
+  .feedback-content { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .feedback-form { background: white; padding: 48px; border-radius: 32px; box-shadow: var(--sombra); }
+  .feedback-form h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 24px; }
+  .form-group { margin-bottom: 24px; }
+  .form-group label { display: block; margin-bottom: 10px; font-weight: 700; }
+  .form-group input, .form-group textarea { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #eee; font-family: inherit; outline: none; }
+  .btn-submit { width: 100%; background: var(--roxo); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+  .btn-submit:hover { background: var(--acai); }
+
+  /* ---- FOOTER ---- */
+  footer { background: var(--roxo-escuro); color: white; padding: 100px 60px 40px; text-align: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 15px; color: var(--amarelo); }
+
+  #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 20px 40px; border-radius: 60px; font-weight: 800; display: none; z-index: 2000; }
+
+  @media (max-width: 1024px) {
+    .hero { flex-direction: column; text-align: center; padding: 140px 24px; }
+    .hero-image img { max-width: 400px; }
+    .sobre { grid-template-columns: 1fr; }
+    .feedback-content { grid-template-columns: 1fr; }
+    nav { padding: 15px 24px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="toast">Feedback enviado com sucesso! 💜</div>
+
+<nav id="navbar">
+  <a href="#" class="logo-nav">Tigela<span> Cheia</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#avaliacoes">Avaliações</a></li>
+    <li><a href="https://api.whatsapp.com/send?phone=5511947802666" class="nav-cta" target="_blank">Pedir Agora</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">⭐ 4.6 no Google · Osasco, SP</span>
+    <h1>O Açaí mais <em>cheio de vida</em> de Osasco</h1>
+    <p class="hero-desc">Ingredientes frescos, creme puro e o sabor que você merece. Peça agora e receba em casa!</p>
+    <a href="https://api.whatsapp.com/send?phone=5511947802666&text=Olá! Quero um açaí caprichado!" target="_blank" class="btn-primary">🍇 Pedir pelo WhatsApp</a>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.pexels.com/photos/12273052/pexels-photo-12273052.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tigela de Açaí Premium">
+  </div>
+</section>
+
+<section id="sobre" class="sobre">
+  <div class="sobre-img">
+    <img src="https://images.pexels.com/photos/1126728/pexels-photo-1126728.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Açaí com Frutas">
+  </div>
+  <div class="sobre-text">
+    <span style="color:var(--acai); font-weight:800; text-transform:uppercase; letter-spacing:1px;">Nossa História</span>
+    <h2>Qualidade em cada colherada</h2>
+    <p>Desde que abrimos na Av. Santiago Rodilha, nosso compromisso foi um só: servir o melhor açaí da região de Osasco. Sem misturas, apenas o sabor real da fruta com os melhores acompanhamentos.</p>
+  </div>
+</section>
+
+<section id="cardapio" class="cardapio">
+  <div class="section-title">
+    <h2 style="color:var(--amarelo);">Nosso Cardápio</h2>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-img"><img src="https://images.pexels.com/photos/3801690/pexels-photo-3801690.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tigela Clássica"></div>
+      <h3>Tigela Clássica</h3>
+      <p>Açaí cremoso, granola artesanal, banana fatiada e mel orgânico.</p>
+      <div class="card-footer">
+        <span class="price">R$ 14,90</span>
+        <a href="https://api.whatsapp.com/send?phone=5511947802666&text=Quero uma Tigela Clássica!" class="btn-order" target="_blank">Pedir</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="https://images.pexels.com/photos/6529789/pexels-photo-6529789.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Choco Lover"></div>
+      <h3>Choco Lover</h3>
+      <p>Açaí, muita Nutella, pedaços de chocolate belga e morangos frescos.</p>
+      <div class="card-footer">
+        <span class="price">R$ 19,90</span>
+        <a href="https://api.whatsapp.com/send?phone=5511947802666&text=Quero uma Choco Lover!" class="btn-order" target="_blank">Pedir</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="avaliacoes" class="feedback">
+  <div class="feedback-content">
+    <div>
+      <h2 style="font-family:'Playfair Display'; font-size:3rem; margin-bottom:20px;">Sua opinião vale ouro</h2>
+      <p style="font-size:1.2rem; color:#5a4a72;">Queremos saber como foi sua experiência na Tigela Cheia. Deixe sua mensagem ao lado!</p>
+    </div>
+    <form class="feedback-form" id="feedbackForm">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" required placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label>O que achou?</label>
+        <textarea rows="4" required placeholder="Sua mensagem..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar Feedback</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Tigela Cheia</div>
+  <p>Av. Santiago Rodilha, 819a – Veloso, Osasco</p>
+  <p style="margin-top:40px; opacity:0.5; font-size:0.8rem;">© 2026 Tigela Cheia. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    e.target.reset();
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  });
+</script>
+
+</body>
+</html>
